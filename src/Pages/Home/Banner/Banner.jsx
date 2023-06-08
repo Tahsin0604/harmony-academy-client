@@ -10,9 +10,10 @@ import "swiper/css/pagination";
 // import required modules
 import { Navigation, Pagination, Autoplay } from "swiper";
 
-import image1 from "../../../assets/New folder/derick-daily-gx2krs5cGDM-unsplash.jpg";
-import image2 from "../../../assets/New folder/hans-vivek-By96LAr-34o-unsplash.jpg";
-import image3 from "../../../assets/New folder/simon-weisser-phS37wg8cQg-unsplash.jpg";
+import image1 from "../../../assets/img/derick-daily-gx2krs5cGDM-unsplash.jpg";
+import image2 from "../../../assets/img/hans-vivek-By96LAr-34o-unsplash.jpg";
+import image3 from "../../../assets/img/simon-weisser-phS37wg8cQg-unsplash.jpg";
+import { Link } from "react-router-dom";
 const Banner = () => {
   return (
     <>
@@ -31,6 +32,7 @@ const Banner = () => {
           delay: 4000,
           disableOnInteraction: false,
         }}
+        className="banner-slide"
       >
         <SwiperSlide className="relative">
           <img src={image1} alt="Image 1" className="w-full h-full" />
@@ -42,8 +44,10 @@ const Banner = () => {
               <p className="uppercase text-3xl font-archivoNarrow mt-1">
                 Hurry Now
               </p>
-              <div className="mt-8">
-                <button className="custom-button">Start Learning</button>
+              <div className="mt-8 flex justify-center">
+                <Link to="/classes" className="custom-button block px-6  py-2">
+                  Start Learning
+                </Link>
               </div>
             </div>
           </div>
@@ -58,8 +62,10 @@ const Banner = () => {
               <p className="uppercase text-3xl font-archivoNarrow mt-1">
                 don't miss the chance
               </p>
-              <div className="mt-8">
-                <button className="custom-button">Start Learning</button>
+              <div className="mt-8 flex justify-center">
+                <Link to="/classes" className="custom-button block px-6  py-2">
+                  Start Learning
+                </Link>
               </div>
             </div>
           </div>
@@ -74,8 +80,10 @@ const Banner = () => {
               <p className="uppercase text-3xl font-archivoNarrow mt-1">
                 Awaken Possibility
               </p>
-              <div className="mt-8">
-                <button className="custom-button">Start Learning</button>
+              <div className="mt-8 flex justify-center">
+                <Link to="/classes" className="custom-button block px-6  py-2">
+                  Start Learning
+                </Link>
               </div>
             </div>
           </div>

@@ -1,0 +1,38 @@
+[
+  {
+    "userName": "John Davis",
+    "userImage": "https://i.ibb.co/k13W77r/testimonial-1.jpg",
+    "location": "New York, USA",
+    "review": "Harmony Academy is fantastic! The instructors are skilled and patient, and the atmosphere is welcoming. I'm glad I chose this school."
+  },
+  {
+    "userName": "Sophia Lee",
+    "userImage": "https://i.ibb.co/NxtnZtM/testimonial-2.jpg",
+    "location": "London, United Kingdom",
+    "review": "Harmony Academy is a top-notch school! The faculty is knowledgeable, and the facilities are excellent. I'm thrilled to be part of this institution."
+  },
+  {
+    "userName": "Carlos Gomez",
+    "userImage": "https://i.ibb.co/J5C1FvC/testimonial-3.jpg",
+    "location": "Rio de Janeiro, Brazil",
+    "review": "Harmony Academy is simply amazing! The teachers are passionate about music, and the curriculum is diverse and engaging. It's been a transformative experience for me."
+  },
+  {
+    "userName": "Lily Chen",
+    "userImage": "https://i.ibb.co/SBHMp13/testimonial-6.jpg",
+    "location": "Sydney, Australia",
+    "review": "Harmony Academy is fantastic! The faculty is highly skilled, and the personalized attention I receive is invaluable. I'm grateful for the opportunity to learn here."
+  },
+  {
+    "userName": "Oliver Johnson",
+    "userImage": "https://i.ibb.co/CW98yGx/testimonial-5.jpg",
+    "location": "Toronto, Canada",
+    "review": "Harmony Academy is a hidden gem! The instructors are skilled and passionate, and the small class sizes ensure personalized attention. I've made great progress here."
+  },
+  {
+    "userName": "Isabella Martinez",
+    "userImage": "https://i.ibb.co/VwrLSg1/testimonial-4.jpg",
+    "location": "Paris, France",
+    "review": "Harmony Academy is a dream come true! The teachers are incredibly talented, and the school's focus on creativity has inspired me to explore new musical horizons."
+  }
+]

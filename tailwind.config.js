@@ -12,6 +12,7 @@ export default {
       pacifico: ["Pacifico", "cursive"],
       righteous: ["Righteous", "cursive"],
       yanoneKaffeesatz: ["Yanone Kaffeesatz", "sans-serif"],
+      caveat: ["Caveat", "cursive"],
     },
   },
   plugins: [require("daisyui")],

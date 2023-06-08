@@ -6,7 +6,7 @@
   color: #fff;
 }
 .custom-button {
-  @apply relative px-6 overflow-hidden py-2 border z-0 hover:border-[#de5e02] transition-colors duration-300 border-solid rounded-lg  font-righteous tracking-wider;
+  @apply relative overflow-hidden border z-0 hover:border-[#de5e02] transition-colors duration-300 border-solid rounded-lg  font-righteous tracking-wider;
 }
 .custom-button::before {
   content: "";
