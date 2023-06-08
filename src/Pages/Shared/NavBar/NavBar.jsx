@@ -39,7 +39,7 @@ const NavBar = () => {
   );
   return (
     <nav
-      className={`fixed inset-x-0 dark:text-white dark:bg-black transition duration-200 ease-in-out ${
+      className={`fixed inset-x-0 z-10  text-white dark:bg-black transition duration-200 ease-in-out ${
         isFixed ? " bg-blue-500  shadow-md shadow-slate-700 pt-0" : " pt-8"
       }`}
     >

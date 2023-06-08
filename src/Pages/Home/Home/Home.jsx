@@ -1,12 +1,11 @@
 import useAosInit from "../../../hooks/useAosInit";
+import Banner from "../Banner/Banner";
 
 const Home = () => {
   useAosInit();
   return (
-    <div>
-      <div className="h-screen">section 1</div>
-      <div className="h-screen">section 2</div>
-      <div className="h-screen">section 3</div>
+    <div className="overflow-x-hidden">
+      <Banner></Banner>
     </div>
   );
 };
