@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import Container from "../../../components/Container";
 import { useEffect, useState, useCallback } from "react";
 import { FaBars, FaMoon, FaSun } from "react-icons/fa";
+import Logo from "../../../components/logo";
 
 const NavBar = () => {
   const theme = localStorage.getItem("theme") || "light";
@@ -80,13 +81,7 @@ const NavBar = () => {
     >
       <Container>
         <div className="flex justify-between items-center py-4">
-          <Link to="/">
-            <h1 className="font-pacifico text-2xl tracking-wider">
-              <span className="text-orange-700">H</span>armony{" "}
-              <span className="text-orange-700">A</span>
-              cademy
-            </h1>
-          </Link>
+          <Logo></Logo>
 
           <div className="flex items-center space-x-4">
             <div className="hidden lg:flex items-end gap-8">
@@ -96,7 +91,7 @@ const NavBar = () => {
             </div>
             {darkMode === "dark" ? (
               <button
-                className="px-3 py-2 custom-button border-[#de5e02]"
+                className="p-2 custom-button border-[#de5e02] rounded-full"
                 onClick={() => {
                   handleTheme("light");
                 }}
@@ -105,7 +100,7 @@ const NavBar = () => {
               </button>
             ) : (
               <button
-                className="px-3 py-2 custom-button border-[#de5e02]"
+                className="p-2 custom-button border-[#de5e02] rounded-full"
                 onClick={() => {
                   handleTheme("dark");
                 }}

@@ -26,7 +26,11 @@ const Testimonial = () => {
     <div className="testimonial">
       <Container>
         <div className="text-center pt-10">
-          <SectionTitle subTitle="testimonial" title="What Our Students Say" />
+          <SectionTitle
+            subTitle="testimonial"
+            title="What Our Students Say"
+            position="right"
+          />
           <Swiper
             modules={[Autoplay]}
             slidesPerView={1}
@@ -53,7 +57,7 @@ const Testimonial = () => {
           >
             {reviews.map((review) => (
               <SwiperSlide key={review._id}>
-                <div className="flex flex-col justify-center items-center py-8 bg-white dark:bg-gray-600  rounded-lg h-[420px] shadow-lg mb-16 px-4">
+                <div className="flex flex-col justify-center items-center py-8 bg-white dark:bg-gray-600  rounded-lg h-[370px] shadow-lg mb-16 px-4 relative">
                   <p className="text-slate-800 dark:text-white font-caveat text-xl font-semibold tracking-wider">
                     {review.review}
                   </p>
@@ -71,6 +75,9 @@ const Testimonial = () => {
                         {review.location}
                       </h5>
                     </div>
+                  </div>
+                  <div className="absolute bottom-4 right-4 ">
+                    <FaQuoteLeft className="text-5xl opacity-20"></FaQuoteLeft>
                   </div>
                 </div>
               </SwiperSlide>

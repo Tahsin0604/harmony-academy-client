@@ -1,4 +1,5 @@
 import useAosInit from "../../../hooks/useAosInit";
+import AboutUs from "../AboutUs/AboutUs";
 import Banner from "../Banner/Banner";
 import CountDown from "../CountDown/CountDown";
 import JoinUs from "../JoinUs/JoinUs";
@@ -7,12 +8,21 @@ import Testimonial from "../Testimonial/Testimonial";
 const Home = () => {
   useAosInit();
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-hidden">
       <Banner></Banner>
-      <JoinUs></JoinUs>
-      <CountDown></CountDown>
-      <Testimonial></Testimonial>
-      <section className="h-screen"> </section>
+      <div data-aos="fade-up" data-aos-duration="1000">
+        <AboutUs></AboutUs>
+      </div>
+      <div data-aos="fade-up" data-aos-duration="1000">
+        <CountDown></CountDown>
+      </div>
+
+      <div data-aos="fade-up" data-aos-duration="1000">
+        <Testimonial></Testimonial>
+      </div>
+      <div data-aos="fade-up" data-aos-duration="1000" className="mt-48">
+        <JoinUs></JoinUs>
+      </div>
     </div>
   );
 };

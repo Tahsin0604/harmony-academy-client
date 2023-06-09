@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 .dark {
-  background-color: #333;
+  background-color: #000000df;
   color: #fff;
 }
 .custom-button {
-  @apply relative overflow-hidden border z-0 hover:border-[#de5e02] transition-colors duration-300 border-solid rounded-lg  font-righteous tracking-wider;
+  @apply relative overflow-hidden border z-0 hover:border-[#de5e02] transition-colors duration-300 border-solid  font-righteous tracking-wider;
 }
 .custom-button::before {
   content: "";
@@ -24,4 +24,7 @@
 }
 .custom-button:hover::before {
   transform: scaleX(1);
+}
+.paragraph-section {
+  @apply font-archivoNarrow text-lg my-8;
 }

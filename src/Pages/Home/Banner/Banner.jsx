@@ -45,7 +45,10 @@ const Banner = () => {
                 Hurry Now
               </p>
               <div className="mt-8 flex justify-center">
-                <Link to="/classes" className="custom-button block px-6  py-2">
+                <Link
+                  to="/classes"
+                  className="custom-button px-6 py-2 rounded-lg"
+                >
                   Start Learning
                 </Link>
               </div>
@@ -63,7 +66,10 @@ const Banner = () => {
                 don't miss the chance
               </p>
               <div className="mt-8 flex justify-center">
-                <Link to="/classes" className="custom-button block px-6  py-2">
+                <Link
+                  to="/classes"
+                  className="custom-button px-6 py-2 rounded-lg"
+                >
                   Start Learning
                 </Link>
               </div>
@@ -81,7 +87,10 @@ const Banner = () => {
                 Awaken Possibility
               </p>
               <div className="mt-8 flex justify-center">
-                <Link to="/classes" className="custom-button block px-6  py-2">
+                <Link
+                  to="/classes"
+                  className="custom-button px-6 py-2 rounded-lg"
+                >
                   Start Learning
                 </Link>
               </div>
