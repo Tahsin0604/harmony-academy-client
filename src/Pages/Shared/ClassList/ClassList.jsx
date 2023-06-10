@@ -33,6 +33,10 @@ const ClassList = () => {
       behavior: "smooth", // Use 'auto' for instant scrolling without smooth animation
     });
   }, [currentPage]);
+  const handlePagination = (page) => {
+    setCurrentPage(page);
+    refetch({ limit: limit, page: currentPage });
+  };
 
   if (loading) {
     return (
@@ -41,10 +45,7 @@ const ClassList = () => {
       </div>
     );
   }
-  const handlePagination = (page) => {
-    setCurrentPage(page);
-    refetch({ limit: limit, page: currentPage });
-  };
+
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">

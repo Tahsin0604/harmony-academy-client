@@ -1,8 +1,16 @@
 import { Link, useLocation } from "react-router-dom";
 import useInstructors from "../../../hooks/useInstructors";
 import InstructorCard from "../../../components/InstructorCard";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const InstructorList = () => {
+  const [totalInstructors, setTotalInstructors] = useState(0);
+  useEffect(() => {
+    axios("http://localhost:5000/instructors-count").then((res) =>
+      setTotalInstructors(res.data.totalInstructors)
+    );
+  }, []);
   const location = useLocation();
   const pathName = location.pathname;
   let limit = 6;
@@ -10,7 +18,27 @@ const InstructorList = () => {
     limit = 12;
   }
   const showPaging = pathName !== "/";
-  const [instructors, , loading] = useInstructors({ limit: limit, page: 0 });
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const totalPages = Math.ceil(totalInstructors / limit);
+  const pageNumbers = [...Array(totalPages).keys()];
+  const [pagination, setPagination] = useState(true);
+  const [instructors, refetch, loading] = useInstructors({
+    limit: limit,
+    page: currentPage,
+  });
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth", // Use 'auto' for instant scrolling without smooth animation
+    });
+  }, [currentPage]);
+
+  const handlePagination = (page) => {
+    setCurrentPage(page);
+    refetch({ limit: limit, page: currentPage });
+  };
 
   if (loading) {
     return (
@@ -34,6 +62,19 @@ const InstructorList = () => {
           >
             Show More
           </Link>
+        </div>
+      )}
+      {showPaging && pagination && (
+        <div className="text-start mt-8">
+          {pageNumbers.map((page) => (
+            <button
+              key={page}
+              className="custom-button py-1 px-2 "
+              onClick={() => handlePagination(page)}
+            >
+              {page + 1}
+            </button>
+          ))}
         </div>
       )}
     </>
