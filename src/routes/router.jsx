@@ -3,6 +3,7 @@ import Main from "../layouts/Main";
 import Home from "../Pages/Home/Home/Home";
 import Classes from "../Pages/Classes/Classes";
 import Instructors from "../Pages/Instructors/Instructors";
+import InstructorsDetails from "../Pages/InstructorsDetails/InstructorsDetails";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,12 @@ const router = createBrowserRouter([
       {
         path: "instructors",
         element: <Instructors></Instructors>,
+      },
+      {
+        path: "instructors/:id",
+        element: <InstructorsDetails></InstructorsDetails>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/instructors/${params.id}`),
       },
     ],
   },
