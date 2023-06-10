@@ -15,7 +15,7 @@ const InstructorList = () => {
   if (loading) {
     return (
       <div className="flex justify-center">
-        <progress className="progress w-56  mt-10"></progress>
+        <progress className="progress w-56  mt-10 bg-white"></progress>
       </div>
     );
   }

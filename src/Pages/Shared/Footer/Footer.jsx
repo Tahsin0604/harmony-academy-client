@@ -5,12 +5,7 @@ import Container from "../../../components/Container";
 import Logo from "../../../components/logo";
 const Footer = () => {
   return (
-    <footer
-      data-aos="fade-up"
-      data-aos-duration="1500"
-      data-aos-delay="200"
-      className="bg-slate-100 dark:bg-black"
-    >
+    <footer className="bg-slate-100 dark:bg-black">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 justify-between py-16 border-b border-slate-600 dark:border-white gap-12">
           <div className="flex flex-col space-y-6">

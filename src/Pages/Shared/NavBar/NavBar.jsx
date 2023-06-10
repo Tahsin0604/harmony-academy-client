@@ -32,6 +32,14 @@ const NavBar = () => {
       document.documentElement.classList.remove("dark");
     }
   }, [darkMode]);
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth", // Use 'auto' for instant scrolling without smooth animation
+    });
+    setNavOpen(false);
+  }, [location]);
   const handleTheme = (buttonTheme) => {
     setDarkMode(buttonTheme);
     localStorage.setItem("theme", buttonTheme);
@@ -79,7 +87,7 @@ const NavBar = () => {
         isFixed
           ? " dark:bg-black shadow dark:shadow-none shadow-slate-500 bg-white text-black dark:text-white pt-0"
           : pathName !== "/"
-          ? "-pt-8 bg-white text-black"
+          ? "-pt-8 bg-white dark:bg-black text-black dark:text-white"
           : "pt-8 text-white"
       }`}
     >
