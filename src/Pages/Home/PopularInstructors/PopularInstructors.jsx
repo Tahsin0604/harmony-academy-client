@@ -14,7 +14,9 @@ const PopularInstructors = () => {
             color={true}
           ></SectionTitle>
         </div>
-        <InstructorList></InstructorList>
+        <div className="px-6">
+          <InstructorList></InstructorList>
+        </div>
       </Container>
     </div>
   );

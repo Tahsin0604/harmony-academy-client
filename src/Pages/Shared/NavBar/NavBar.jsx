@@ -79,6 +79,16 @@ const NavBar = () => {
       >
         Classes
       </NavLink>
+      <NavLink
+        to="/login"
+        className={({ isActive }) =>
+          isActive
+            ? "text-orange-500 font-righteous text-lg tracking-wide"
+            : " font-righteous text-lg tracking-wide hover:text-orange-500"
+        }
+      >
+        Login
+      </NavLink>
     </>
   );
   return (

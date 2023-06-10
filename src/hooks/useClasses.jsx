@@ -12,7 +12,6 @@ const useClasses = ({ limit, page }) => {
       const res = await axios.get(
         `http://localhost:5000/classes?limit=${limit}&page=${page}`
       );
-      console.log(res.data);
       return res.data;
     },
   });

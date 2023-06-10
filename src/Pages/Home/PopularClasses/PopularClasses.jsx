@@ -14,7 +14,9 @@ const PopularClasses = () => {
             color={true}
           ></SectionTitle>
         </div>
-        <ClassList></ClassList>
+        <div className="px-6">
+          <ClassList></ClassList>
+        </div>
       </Container>
     </div>
   );

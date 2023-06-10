@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const InstructorCard = ({ item }) => {
   const { _id, image, name, totalClasses, totalStudents } = item;
   return (
-    <div>
+    <div data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="200">
       <Link to={`/instructors/${_id}`}>
         <div className="rounded-lg bg-base-100 dark:bg-[#0000002f] border-none shadow-md hover:shadow-orange-100 hover:scale-105 transition-transform duration-500 ease-in-out">
           <div className="overflow-hidden rounded-t-lg w-full">

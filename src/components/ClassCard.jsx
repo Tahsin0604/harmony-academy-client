@@ -1,11 +1,14 @@
 import { FaLocationArrow } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const ClassCard = ({ item }) => {
+const ClassCard = ({ item, index }) => {
   const { availableSeats, classImage, className, instructorName, price, _id } =
     item;
   return (
     <div
+      data-aos="zoom-in"
+      data-aos-duration="1000"
+      data-aos-delay="200"
       className={`rounded-3xl shadow-md pb-6 ${
         availableSeats ? "shadow-slate-400 " : "shadow-red-500"
       }`}
