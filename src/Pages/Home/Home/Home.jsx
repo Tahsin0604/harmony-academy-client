@@ -3,6 +3,7 @@ import AboutUs from "../AboutUs/AboutUs";
 import Banner from "../Banner/Banner";
 import CountDown from "../CountDown/CountDown";
 import JoinUs from "../JoinUs/JoinUs";
+import PopularClasses from "../PopularClasses/PopularClasses";
 import Testimonial from "../Testimonial/Testimonial";
 
 const Home = () => {
@@ -15,6 +16,9 @@ const Home = () => {
       </div>
       <div data-aos="fade-up" data-aos-duration="1000">
         <CountDown></CountDown>
+      </div>
+      <div data-aos="fade-up" data-aos-duration="1000">
+        <PopularClasses></PopularClasses>
       </div>
 
       <div data-aos="fade-up" data-aos-duration="1000">
