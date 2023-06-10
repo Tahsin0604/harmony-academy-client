@@ -1,16 +1,26 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
 
 const useClasses = ({ limit, page }) => {
-  const [classes, setClasses] = useState([]);
+  const {
+    data: classes = [],
+    refetch,
+    isLoading: loading,
+  } = useQuery({
+    queryKey: ["classes", limit, page],
+    queryFn: async () => {
+      const res = await axios.get(
+        `http://localhost:5000/classes?limit=${limit}&page=${page}`
+      );
+      return res.data;
+    },
+  });
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/classes?limit=${limit}&page=${page}`)
-      .then((res) => setClasses(res.data));
-  }, []);
-
-  return classes;
+  return [classes, refetch, loading];
 };
 
 export default useClasses;
+
+/*
+ refetch({ page: 1 }); possible
+*/

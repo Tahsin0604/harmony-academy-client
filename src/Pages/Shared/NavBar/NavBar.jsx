@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Container from "../../../components/Container";
 import { useEffect, useState, useCallback } from "react";
 import { FaBars, FaMoon, FaSun } from "react-icons/fa";
@@ -9,6 +9,8 @@ const NavBar = () => {
   const [darkMode, setDarkMode] = useState(theme);
   const [isFixed, setFixed] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
+  const location = useLocation();
+  const pathName = location.pathname;
   const handleFixedPosition = () => {
     const scrollingPosition = window.scrollY;
     if (scrollingPosition > 60) {
@@ -73,10 +75,12 @@ const NavBar = () => {
   );
   return (
     <nav
-      className={`fixed inset-x-0 z-10   transition duration-200 ease-in-out ${
+      className={`fixed inset-x-0 top-0 z-10  transition duration-200 ease-in-out ${
         isFixed
           ? " dark:bg-black shadow dark:shadow-none shadow-slate-500 bg-white text-black dark:text-white pt-0"
-          : " pt-8 text-white"
+          : pathName !== "/"
+          ? "-pt-8 bg-white text-black"
+          : "pt-8 text-white"
       }`}
     >
       <Container>

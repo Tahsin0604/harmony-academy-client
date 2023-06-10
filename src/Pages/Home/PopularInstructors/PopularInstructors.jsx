@@ -1,23 +1,23 @@
 import Container from "../../../components/Container";
 import SectionTitle from "../../../components/SectionTitle";
-import ClassList from "../../Shared/ClassList/ClassList";
+import InstructorList from "../../Shared/InstructorList/InstructorList";
 
-const PopularClasses = () => {
+const PopularInstructors = () => {
   return (
     <div className="py-16">
       <Container>
         <div className="text-center">
           <SectionTitle
-            subTitle="classes"
-            title="Our Most popular Classes"
+            subTitle="instructors"
+            title="Featured Instructors"
             position="right"
             color={true}
           ></SectionTitle>
         </div>
-        <ClassList></ClassList>
+        <InstructorList></InstructorList>
       </Container>
     </div>
   );
 };
 
-export default PopularClasses;
+export default PopularInstructors;

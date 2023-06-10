@@ -14,7 +14,7 @@ const SectionTitle = ({ subTitle, title, color, position }) => {
         {subTitle}
       </p>
       <h1
-        className={`font-yanoneKaffeesatz font-bold text-5xl tracking-widest ${
+        className={`font-yanoneKaffeesatz font-bold text-5xl tracking-widest capitalize ${
           color ? "text-slate-900 dark:text-slate-50" : "text-white"
         }`}
         data-aos={`fade-${position}`}
