@@ -1,14 +1,8 @@
-import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
+import useClasses from "../../../hooks/useClasses";
 
 const PopularClasses = () => {
-  const [classes, setClasses] = useState([]);
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/classes?limit=6&page=0")
-      .then((res) => console.log(res));
-  }, []);
+  const classes = useClasses({ limit: 6, page: 0 });
+  console.log(classes);
   return <div></div>;
 };
 
