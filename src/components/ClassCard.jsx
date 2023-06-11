@@ -1,10 +1,11 @@
-import { useContext } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../provider/AuthProvider";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import useAuth from "../hooks/useAuth";
+import { toast } from "react-hot-toast";
+import Swal from "sweetalert2";
 
-const ClassCard = ({ item, index }) => {
-  const { user } = useContext(AuthContext);
+const ClassCard = ({ item }) => {
+  const { user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const { availableSeats, classImage, className, instructorName, price, _id } =
@@ -12,17 +13,31 @@ const ClassCard = ({ item, index }) => {
   const handleAddToCart = (item) => {
     console.log(item);
     if (user && user?.email) {
-      const cartItem = {
+      const selectedClasses = {
         classId: _id,
         className,
-        classImage,
-        instructorName,
-        price,
         studentEmail: user.email,
       };
-      axios.post("");
+      axios
+        .post("http://localhost:5000/selectedClasses", selectedClasses)
+        .then((res) => {
+          if (res.data.insertedId) {
+            toast.success("New Class Selected");
+          }
+        });
     } else {
-      console.log("s");
+      Swal.fire({
+        title: "please Login to select new class",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login Now!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login", { state: { from: location } });
+        }
+      });
     }
   };
 
@@ -31,7 +46,7 @@ const ClassCard = ({ item, index }) => {
       data-aos="zoom-in"
       data-aos-duration="1000"
       data-aos-delay="200"
-      className={`rounded-3xl shadow-md pb-6 ${
+      className={`rounded-3xl shadow-md pb-4 ${
         availableSeats ? "shadow-slate-400 " : "shadow-red-500"
       }`}
     >
@@ -56,15 +71,14 @@ const ClassCard = ({ item, index }) => {
           price: ${price}
         </p>
 
-        <div className="flex justify-end gap-3">
+        <div className="flex justify-end">
           {availableSeats ? (
-            <Link
+            <button
               onClick={() => handleAddToCart(item)}
-              to={`/enrolled/${_id}`}
               className="custom-button px-4 py-2 rounded-lg border-solid border-slate-900 dark:border-slate-50"
             >
               Enrolled Now
-            </Link>
+            </button>
           ) : (
             <h1 className="px-4 py-2 rounded-lg bg-red-500 text-slate-800 font-righteous tracking-wider dark:text-white cursor-pointer">
               Filled Up

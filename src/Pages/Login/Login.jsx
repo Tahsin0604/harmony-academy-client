@@ -2,12 +2,12 @@ import { useForm } from "react-hook-form";
 import SectionTitle from "../../components/SectionTitle";
 import Container from "../../components/Container";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import GoogleLogin from "../Shared/GoogleLogin/GoogleLogin";
-import { AuthContext } from "../../provider/AuthProvider";
 import { toast } from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
 const Login = () => {
   const {
     register,
@@ -15,7 +15,7 @@ const Login = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const { signIn } = useContext(AuthContext);
+  const { signIn } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location?.state?.from?.pathname || location?.state?.from || "/";
@@ -74,8 +74,6 @@ const Login = () => {
                   type={passwordEye === false ? "password" : "text"}
                   {...register("password", {
                     required: true,
-                    minLength: 6,
-                    pattern: /^[a-z0-9]+$/,
                   })}
                   className="py-1 pl-2 pr-8 border w-full outline-none border-slate-500 rounded-md font-yanoneKaffeesatz text-lg dark:text-black"
                 />

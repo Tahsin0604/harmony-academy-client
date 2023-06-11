@@ -2,17 +2,17 @@ import { useForm } from "react-hook-form";
 import SectionTitle from "../../components/SectionTitle";
 import Container from "../../components/Container";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { AuthContext } from "../../provider/AuthProvider";
 import GoogleLogin from "../Shared/GoogleLogin/GoogleLogin";
+import useAuth from "../../hooks/useAuth";
 const imageHostingKey = import.meta.env.VITE_IMAGE_KEY;
 
 const Register = () => {
-  const { signUp, updateUser } = useContext(AuthContext);
+  const { signUp, updateUser } = useAuth();
   const {
     register,
     handleSubmit,
@@ -39,7 +39,6 @@ const Register = () => {
 
     axios.post(imageHostingUrl, formData).then((res) => {
       if (res.data.success) {
-        console.log(res.data.data.display_url);
         const imgUrl = res.data.data.display_url;
         const { name, email, gender, password } = data;
         let genderValue = gender === "Select" ? "" : gender;
@@ -58,7 +57,6 @@ const Register = () => {
                 axios
                   .post("http://localhost:5000/users", newUser)
                   .then((res) => {
-                    console.log(res);
                     if (res.data.insertedId) {
                       toast.success("Account Created");
                       reset();
@@ -170,7 +168,8 @@ const Register = () => {
                   {...register("password", {
                     required: true,
                     minLength: 6,
-                    pattern: /^[a-z0-9]+$/,
+                    pattern:
+                      /(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/,
                   })}
                   className="py-1 pl-2 pr-8 border w-full outline-none border-slate-500 rounded-md font-yanoneKaffeesatz text-lg dark:text-black"
                 />
@@ -182,7 +181,8 @@ const Register = () => {
                 )}
                 {errors.password?.type === "pattern" && (
                   <p className="text-red-600">
-                    Password must have no Uppercase and special character.
+                    Password must have at least one Uppercase and one Special
+                    Character.
                   </p>
                 )}
                 <div className="absolute top-[6px] right-1 text-black text-2xl">
@@ -209,7 +209,8 @@ const Register = () => {
                   {...register("confirm", {
                     required: true,
                     minLength: 6,
-                    pattern: /^[a-z0-9]+$/,
+                    pattern:
+                      /(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/,
                     validate: (value) =>
                       value === watchPassword ? true : false,
                   })}
@@ -226,7 +227,8 @@ const Register = () => {
                 )}
                 {errors.confirm?.type === "pattern" && (
                   <p className="text-red-600">
-                    Password must have no Uppercase and Special Character.
+                    Password must have at least one Uppercase and one Special
+                    Character.
                   </p>
                 )}
                 <div className="absolute top-[6px] right-1 text-black text-2xl">

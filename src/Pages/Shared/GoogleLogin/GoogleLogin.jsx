@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import { FaGoogle } from "react-icons/fa";
-import { AuthContext } from "../../../provider/AuthProvider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const GoogleLogin = ({ from }) => {
-  const { googleSignIn } = useContext(AuthContext);
+  const { googleSignIn } = useAuth();
   const navigate = useNavigate();
   const handleGoogle = () => {
     googleSignIn()

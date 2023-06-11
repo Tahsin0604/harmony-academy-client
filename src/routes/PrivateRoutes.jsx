@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { AuthContext } from "../provider/AuthProvider";
 import { Navigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const PrivateRoutes = ({ children }) => {
-  const { loading, user } = useContext(AuthContext);
+  const { loading, user } = useAuth();
   if (loading) {
     return (
       <div className="flex justify-center">

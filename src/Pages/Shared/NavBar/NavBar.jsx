@@ -1,13 +1,12 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import Container from "../../../components/Container";
-import { useEffect, useState, useCallback, useContext } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { FaBars, FaMoon, FaSun, FaUserCircle } from "react-icons/fa";
 import Logo from "../../../components/logo";
-import { AuthContext } from "../../../provider/AuthProvider";
+import useAuth from "../../../hooks/useAuth";
 
 const NavBar = () => {
-  const { user, logOut } = useContext(AuthContext);
-  console.log(user);
+  const { user, logOut } = useAuth();
   const theme = localStorage.getItem("theme") || "light";
   const [darkMode, setDarkMode] = useState(theme);
   const [isFixed, setFixed] = useState(false);
