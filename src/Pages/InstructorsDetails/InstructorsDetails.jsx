@@ -2,6 +2,7 @@ import React from "react";
 import { useLoaderData } from "react-router-dom";
 import Container from "../../components/Container";
 import InstructorClassList from "./InstructorClassList";
+import { Helmet } from "react-helmet-async";
 
 const InstructorsDetails = () => {
   const [instructor] = useLoaderData();
@@ -10,6 +11,9 @@ const InstructorsDetails = () => {
 
   return (
     <div className="mt-28 mb-12 min-h-[calc(100vh-380px)]">
+      <Helmet>
+        <title>Harmony Academy | Instructor: {name}</title>
+      </Helmet>
       <Container>
         <div className="flex flex-col lg:flex-row gap-6  lg:items-center px-6">
           <div>

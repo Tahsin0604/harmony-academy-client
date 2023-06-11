@@ -5,6 +5,7 @@ import { FaGoogle } from "react-icons/fa";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const {
@@ -31,6 +32,9 @@ const Register = () => {
       data-aos-delay="250"
       className="mt-28 mb-12 min-h-[calc(100vh-380px)]"
     >
+      <Helmet>
+        <title>Harmony Academy | Register</title>
+      </Helmet>
       <div className="text-center">
         <SectionTitle
           title="Register Now"

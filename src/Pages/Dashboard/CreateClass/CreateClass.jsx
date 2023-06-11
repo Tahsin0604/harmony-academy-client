@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../../components/SectionTitle";
 import Container from "../../../components/Container";
+import { Helmet } from "react-helmet-async";
 
 const CreateClass = () => {
   const {
@@ -19,6 +20,9 @@ const CreateClass = () => {
       data-aos-delay="250"
       className="mt-28 mb-12 min-h-[calc(100vh-380px)]"
     >
+      <Helmet>
+        <title>Harmony Academy | Create New Course</title>
+      </Helmet>
       <div className="text-center">
         <SectionTitle
           title="Create new Course"
@@ -32,7 +36,10 @@ const CreateClass = () => {
             {/* name */}
             <div className="flex flex-col">
               <label htmlFor="email" className="mb-1">
-                <span className="font-yanoneKaffeesatz text-lg">Name</span>
+                <span className="font-yanoneKaffeesatz text-lg">
+                  {" "}
+                  Course name
+                </span>
               </label>
               <input
                 type="text"

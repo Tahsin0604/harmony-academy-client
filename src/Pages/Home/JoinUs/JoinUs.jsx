@@ -36,7 +36,7 @@ const JoinUs = () => {
               data-aos-delay="270"
             >
               <Link
-                to="/classes"
+                to="/courses"
                 className="custom-button rounded-lg px-6 py-2 border-solid border-slate-900 dark:border-slate-50"
               >
                 Explore Us

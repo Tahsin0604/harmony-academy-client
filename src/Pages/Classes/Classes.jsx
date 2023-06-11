@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import Container from "../../components/Container";
 import SectionTitle from "../../components/SectionTitle";
 import ClassList from "../Shared/ClassList/ClassList";
@@ -5,6 +6,9 @@ import ClassList from "../Shared/ClassList/ClassList";
 const Classes = () => {
   return (
     <div className="mt-28 mb-12 min-h-[calc(100vh-380px)]">
+      <Helmet>
+        <title>Harmony Academy | Courses</title>
+      </Helmet>
       <Container>
         <div className="text-center">
           <SectionTitle

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import useAosInit from "../../../hooks/useAosInit";
 import AboutUs from "../AboutUs/AboutUs";
 import Banner from "../Banner/Banner";
@@ -11,6 +12,9 @@ const Home = () => {
   useAosInit();
   return (
     <div className="overflow-hidden">
+      <Helmet>
+        <title>Harmony Academy | Home</title>
+      </Helmet>
       <Banner></Banner>
       <div data-aos="fade-up" data-aos-duration="1000">
         <AboutUs></AboutUs>

@@ -45,10 +45,10 @@ const AboutUs = () => {
               data-aos-delay="240"
             >
               <Link
-                to="/classes"
+                to="/courses"
                 className="custom-button px-6 py-2 border-solid rounded-lg border-slate-900 dark:border-slate-50"
               >
-                Our Classes
+                Our Courses
               </Link>
             </div>
           </div>

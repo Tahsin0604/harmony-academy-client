@@ -46,7 +46,7 @@ const Banner = () => {
               </p>
               <div className="mt-8 flex justify-center">
                 <Link
-                  to="/classes"
+                  to="/courses"
                   className="custom-button px-6 py-2 rounded-lg"
                 >
                   Start Learning
@@ -67,7 +67,7 @@ const Banner = () => {
               </p>
               <div className="mt-8 flex justify-center">
                 <Link
-                  to="/classes"
+                  to="/courses"
                   className="custom-button px-6 py-2 rounded-lg"
                 >
                   Start Learning
@@ -88,7 +88,7 @@ const Banner = () => {
               </p>
               <div className="mt-8 flex justify-center">
                 <Link
-                  to="/classes"
+                  to="/courses"
                   className="custom-button px-6 py-2 rounded-lg"
                 >
                   Start Learning
