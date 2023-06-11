@@ -8,8 +8,8 @@ const PopularClasses = () => {
       <Container>
         <div className="text-center">
           <SectionTitle
-            subTitle="courses"
-            title="Our Most popular Courses"
+            subTitle="classes"
+            title="Our Most popular Classes"
             position="right"
             color={true}
           ></SectionTitle>

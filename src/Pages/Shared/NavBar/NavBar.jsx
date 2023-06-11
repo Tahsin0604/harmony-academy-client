@@ -70,14 +70,14 @@ const NavBar = () => {
         Instructors
       </NavLink>
       <NavLink
-        to="/courses"
+        to="/classes"
         className={({ isActive }) =>
           isActive
             ? "text-orange-500 font-righteous text-lg tracking-wide"
             : " font-righteous text-lg tracking-wide hover:text-orange-500"
         }
       >
-        Courses
+        Classes
       </NavLink>
       <NavLink
         to="/login"
@@ -113,21 +113,23 @@ const NavBar = () => {
             </div>
             {darkMode === "dark" ? (
               <button
-                className="p-2 custom-button border-[#de5e02] rounded-full"
+                className="p-1 custom-button border-[#de5e02] rounded-full"
                 onClick={() => {
                   handleTheme("light");
                 }}
+                title="Light"
               >
-                <FaMoon></FaMoon>
+                <FaSun className="text-sm"></FaSun>
               </button>
             ) : (
               <button
-                className="p-2 custom-button border-[#de5e02] rounded-full"
+                className="p-1 custom-button border-[#de5e02] rounded-full"
                 onClick={() => {
                   handleTheme("dark");
                 }}
+                title="Dark"
               >
-                <FaSun></FaSun>
+                <FaMoon className="text-sm"></FaMoon>
               </button>
             )}
             <button className="lg:hidden" onClick={handleNavButton}>

@@ -21,11 +21,11 @@ const EditClass = () => {
       className="mt-28 mb-12 min-h-[calc(100vh-380px)]"
     >
       <Helmet>
-        <title>Harmony Academy | Edit Course</title>
+        <title>Harmony Academy | Edit Class</title>
       </Helmet>
       <div className="text-center">
         <SectionTitle
-          title="Edit Course"
+          title="Edit Class"
           color={true}
           position="right"
         ></SectionTitle>
@@ -37,7 +37,7 @@ const EditClass = () => {
             <div className="flex flex-col">
               <label htmlFor="email" className="mb-1">
                 <span className="font-yanoneKaffeesatz text-lg">
-                  Course name
+                  Class name
                 </span>
               </label>
               <input
@@ -102,7 +102,7 @@ const EditClass = () => {
                 type="submit"
                 className="bg-slate-800 w-full dark:bg-white text-white dark:text-black font-yanoneKaffeesatz text-xl py-1 rounded-lg transition-transform hover:scale-105 ease-in-out"
               >
-                Edit
+                Edit Class
               </button>
             </div>
           </form>

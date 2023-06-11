@@ -1,9 +1,31 @@
-import { FaLocationArrow } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
+import axios from "axios";
 
 const ClassCard = ({ item, index }) => {
+  const { user } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
   const { availableSeats, classImage, className, instructorName, price, _id } =
     item;
+  const handleAddToCart = (item) => {
+    console.log(item);
+    if (user && user?.email) {
+      const cartItem = {
+        classId: _id,
+        className,
+        classImage,
+        instructorName,
+        price,
+        studentEmail: user.email,
+      };
+      axios.post("");
+    } else {
+      console.log("s");
+    }
+  };
+
   return (
     <div
       data-aos="zoom-in"
@@ -37,6 +59,7 @@ const ClassCard = ({ item, index }) => {
         <div className="flex justify-end gap-3">
           {availableSeats ? (
             <Link
+              onClick={() => handleAddToCart(item)}
               to={`/enrolled/${_id}`}
               className="custom-button px-4 py-2 rounded-lg border-solid border-slate-900 dark:border-slate-50"
             >

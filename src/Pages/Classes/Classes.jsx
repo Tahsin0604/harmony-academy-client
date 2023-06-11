@@ -7,12 +7,12 @@ const Classes = () => {
   return (
     <div className="mt-28 mb-12 min-h-[calc(100vh-380px)]">
       <Helmet>
-        <title>Harmony Academy | Courses</title>
+        <title>Harmony Academy | Classes</title>
       </Helmet>
       <Container>
         <div className="text-center">
           <SectionTitle
-            title="Our Courses"
+            title="Our Classes"
             color={true}
             position="right"
           ></SectionTitle>

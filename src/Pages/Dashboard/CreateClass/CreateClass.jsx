@@ -21,11 +21,11 @@ const CreateClass = () => {
       className="mt-28 mb-12 min-h-[calc(100vh-380px)]"
     >
       <Helmet>
-        <title>Harmony Academy | Create New Course</title>
+        <title>Harmony Academy | Create New Class</title>
       </Helmet>
       <div className="text-center">
         <SectionTitle
-          title="Create new Course"
+          title="Create new Class"
           color={true}
           position="right"
         ></SectionTitle>
@@ -38,7 +38,7 @@ const CreateClass = () => {
               <label htmlFor="email" className="mb-1">
                 <span className="font-yanoneKaffeesatz text-lg">
                   {" "}
-                  Course name
+                  Class name
                 </span>
               </label>
               <input
@@ -115,7 +115,7 @@ const CreateClass = () => {
                 type="submit"
                 className="bg-slate-800 w-full dark:bg-white text-white dark:text-black font-yanoneKaffeesatz text-xl py-1 rounded-lg transition-transform hover:scale-105 ease-in-out"
               >
-                Add New Course
+                Add New Class
               </button>
             </div>
           </form>

@@ -12,7 +12,7 @@ import {
 import { createContext, useEffect, useState } from "react";
 import { app } from "../firebase/firebase.config";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
@@ -64,8 +64,9 @@ const AuthProvider = ({ children }) => {
         axios
           .post("http://localhost:5000/jwt", { email: currentUser.email })
           .then((res) => {
-            console.log(res.data.token);
-            localStorage.setItem("access-token", res.data.token);
+            console.log(res);
+            console.log(res.data);
+            localStorage.setItem("access-token", res.data);
             setLoading(false);
           });
       } else {

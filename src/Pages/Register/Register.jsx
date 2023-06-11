@@ -3,17 +3,25 @@ import SectionTitle from "../../components/SectionTitle";
 import Container from "../../components/Container";
 import { FaGoogle } from "react-icons/fa";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { AuthContext } from "../../provider/AuthProvider";
+const imageHostingKey = import.meta.env.VITE_IMAGE_KEY;
 
 const Register = () => {
+  const { signUp, updateUser } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm();
+
+  const imageHostingUrl = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
   const [passwordEye, setPasswordEye] = useState(false);
   const [passwordEye2, setPasswordEye2] = useState(false);
   const handlePasswordClick = () => {
@@ -22,8 +30,45 @@ const Register = () => {
   const handlePasswordClick2 = () => {
     setPasswordEye2(!passwordEye2);
   };
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const watchPassword = watch("password");
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    formData.append("image", data.photo[0]);
+
+    axios.post(imageHostingUrl, formData).then((res) => {
+      if (res.data.success) {
+        console.log(res.data.data.display_url);
+        const imgUrl = res.data.data.display_url;
+        const { name, email, gender, password } = data;
+        let genderValue = gender === "Select" ? "" : gender;
+        const newUser = {
+          image: imgUrl,
+          name,
+          email,
+          role: "student",
+          gender: genderValue,
+        };
+        console.log(newUser);
+        signUp(email, password)
+          .then(() => {
+            updateUser(name, imgUrl)
+              .then(() => {
+                console.log(newUser);
+                axios
+                  .post("http://localhost:5000/users", newUser)
+                  .then((res) => {
+                    console.log(res);
+                    if (res.data.insertedId) {
+                      reset();
+                      toast.success("Account Created");
+                    }
+                  });
+              })
+              .catch((err) => console.log(err));
+          })
+          .catch((err) => console.log(err));
+      }
+    });
   };
   return (
     <div
@@ -94,12 +139,11 @@ const Register = () => {
                 <span className="font-yanoneKaffeesatz text-lg">Gender</span>
               </label>
               <select
+                defaultValue="Select"
                 {...register("gender")}
                 className="select select-bordered w-full text-black outline-none"
               >
-                <option className="text-black" disabled selected>
-                  Choose
-                </option>
+                <option disabled>Select</option>
                 <option>Male</option>
                 <option>Female</option>
               </select>
@@ -155,11 +199,16 @@ const Register = () => {
                     required: true,
                     minLength: 6,
                     pattern: /^[a-z0-9]+$/,
+                    validate: (value) =>
+                      value === watchPassword ? true : false,
                   })}
                   className="py-1 pl-2 pr-8 border w-full outline-none border-slate-500 rounded-md font-yanoneKaffeesatz text-lg dark:text-black"
                 />
                 {errors.confirm?.type === "required" && (
                   <p className="text-red-600">Password is required</p>
+                )}
+                {errors.confirm?.type === "validate" && (
+                  <p className="text-red-600">Password does not match</p>
                 )}
                 {errors.confirm?.type === "minLength" && (
                   <p className="text-red-600">Password must be 6 characters</p>

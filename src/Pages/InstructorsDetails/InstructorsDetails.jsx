@@ -38,7 +38,7 @@ const InstructorsDetails = () => {
           </div>
         </div>
         <h1 className="mt-8 capitalize text-2xl font-yanoneKaffeesatz -mb-6 font-semibold px-6">
-          Courses({totalClasses})
+          Classes({totalClasses})
         </h1>
         <div className="px-6">
           <InstructorClassList classes={classes}></InstructorClassList>
