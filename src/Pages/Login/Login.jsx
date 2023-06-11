@@ -1,23 +1,36 @@
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../components/SectionTitle";
 import Container from "../../components/Container";
-import { FaGoogle } from "react-icons/fa";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import GoogleLogin from "../Shared/GoogleLogin/GoogleLogin";
+import { AuthContext } from "../../provider/AuthProvider";
+import { toast } from "react-hot-toast";
 const Login = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+  const { signIn } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || location?.state?.from || "/";
   const [passwordEye, setPasswordEye] = useState(false);
   const handlePasswordClick = () => {
     setPasswordEye(!passwordEye);
   };
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (data) => {
+    signIn(data.email, data.password)
+      .then(() => {
+        toast.success("You are logged In");
+        reset();
+        navigate(from, { replace: true });
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <div
@@ -86,6 +99,8 @@ const Login = () => {
                   Don't have an account.{" "}
                   <Link
                     to="/register"
+                    state={{ from: from }}
+                    replace
                     className="font-bold ml-1 text-orange-400 tracking-wider hover:underline"
                   >
                     Register
@@ -106,17 +121,7 @@ const Login = () => {
         <div className="max-w-md mx-auto my-3 pt-3 pb-2 px-4">
           <hr className="h-px bg-slate-500  border-0 dark:bg-white" />
         </div>
-        <div className="max-w-md mx-auto rounded-lg py-8 px-6 shadow-md bg-slate-50 dark:bg-slate-800 ">
-          <div>
-            <button
-              type="submit"
-              className="bg-slate-800 w-full dark:bg-white text-white dark:text-black font-yanoneKaffeesatz text-xl py-1 rounded-lg transition-transform hover:scale-105 ease-in-out flex justify-center items-center gap-2"
-            >
-              <FaGoogle className="text-lg"></FaGoogle>{" "}
-              <span>Continue with Google</span>
-            </button>
-          </div>
-        </div>
+        <GoogleLogin from={from}></GoogleLogin>
       </Container>
     </div>
   );

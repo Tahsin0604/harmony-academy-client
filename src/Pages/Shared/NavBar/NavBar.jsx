@@ -1,10 +1,13 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import Container from "../../../components/Container";
-import { useEffect, useState, useCallback } from "react";
-import { FaBars, FaMoon, FaSun } from "react-icons/fa";
+import { useEffect, useState, useCallback, useContext } from "react";
+import { FaBars, FaMoon, FaSun, FaUserCircle } from "react-icons/fa";
 import Logo from "../../../components/logo";
+import { AuthContext } from "../../../provider/AuthProvider";
 
 const NavBar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  console.log(user);
   const theme = localStorage.getItem("theme") || "light";
   const [darkMode, setDarkMode] = useState(theme);
   const [isFixed, setFixed] = useState(false);
@@ -47,6 +50,9 @@ const NavBar = () => {
   const handleNavButton = useCallback(() => {
     setNavOpen(!navOpen);
   }, [navOpen]);
+  const handleLogOut = () => {
+    logOut().then().catch();
+  };
   const navList = (
     <>
       <NavLink
@@ -79,18 +85,73 @@ const NavBar = () => {
       >
         Classes
       </NavLink>
-      <NavLink
-        to="/login"
-        className={({ isActive }) =>
-          isActive
-            ? "text-orange-500 font-righteous text-lg tracking-wide"
-            : " font-righteous text-lg tracking-wide hover:text-orange-500"
-        }
-      >
-        Login
-      </NavLink>
+      {user && (
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            isActive
+              ? "text-orange-500 font-righteous text-lg tracking-wide"
+              : " font-righteous text-lg tracking-wide hover:text-orange-500"
+          }
+        >
+          Dashboard
+        </NavLink>
+      )}
+      {!user && (
+        <div className="mt-2 lg:mt-0">
+          <Link
+            to="/login"
+            state={{ from: location }}
+            replace
+            className={`custom-button px-2 py-1 rounded-sm ${
+              isFixed
+                ? " border-black dark:border-white"
+                : pathName !== "/"
+                ? " border-black dark:border-white"
+                : ""
+            }`}
+          >
+            Login
+          </Link>
+        </div>
+      )}
+      {user && (
+        <div>
+          <div
+            className="tooltip tooltip-right lg:tooltip-bottom cursor-pointer mt-2 lg:mt-0"
+            data-tip={user.displayName}
+          >
+            {user.photoURL ? (
+              <img
+                src={user.photoURL}
+                alt=""
+                className="h-10 w-10 rounded-full"
+              />
+            ) : (
+              <FaUserCircle className="h-10 w-10 rounded-full"></FaUserCircle>
+            )}
+          </div>
+        </div>
+      )}
+      {user && (
+        <div className="mt-2 lg:mt-0">
+          <button
+            onClick={handleLogOut}
+            className={`custom-button px-2 py-1 rounded-sm ${
+              isFixed
+                ? " border-black dark:border-white"
+                : pathName !== "/"
+                ? " border-black dark:border-white"
+                : ""
+            }`}
+          >
+            logout
+          </button>
+        </div>
+      )}
     </>
   );
+
   return (
     <nav
       className={`fixed inset-x-0 top-0 z-10  transition duration-200 ease-in-out ${
@@ -137,7 +198,15 @@ const NavBar = () => {
             </button>
           </div>
         </div>
-        {navOpen && <div className="flex flex-col">{navList}</div>}
+        {navOpen && (
+          <div
+            className={`flex flex-col   p-4 rounded ${
+              isFixed ? " " : pathName !== "/" ? "" : "bg-black bg-opacity-80"
+            }`}
+          >
+            {navList}
+          </div>
+        )}
       </Container>
     </nav>
   );

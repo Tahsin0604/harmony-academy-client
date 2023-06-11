@@ -27,8 +27,8 @@ const AuthProvider = ({ children }) => {
   };
   /**/
 
-  /* SignIn */
-  const SignIn = (email, password) => {
+  /* signIn */
+  const signIn = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
@@ -64,8 +64,6 @@ const AuthProvider = ({ children }) => {
         axios
           .post("http://localhost:5000/jwt", { email: currentUser.email })
           .then((res) => {
-            console.log(res);
-            console.log(res.data);
             localStorage.setItem("access-token", res.data);
             setLoading(false);
           });
@@ -82,7 +80,7 @@ const AuthProvider = ({ children }) => {
     user,
     loading,
     googleSignIn,
-    SignIn,
+    signIn,
     signUp,
     updateUser,
     logOut,

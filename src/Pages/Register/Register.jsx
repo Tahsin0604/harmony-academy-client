@@ -1,14 +1,14 @@
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../components/SectionTitle";
 import Container from "../../components/Container";
-import { FaGoogle } from "react-icons/fa";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../../provider/AuthProvider";
+import GoogleLogin from "../Shared/GoogleLogin/GoogleLogin";
 const imageHostingKey = import.meta.env.VITE_IMAGE_KEY;
 
 const Register = () => {
@@ -20,7 +20,9 @@ const Register = () => {
     watch,
     formState: { errors },
   } = useForm();
-
+  const location = useLocation();
+  const from = location?.state?.from || "/";
+  const navigate = useNavigate();
   const imageHostingUrl = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
   const [passwordEye, setPasswordEye] = useState(false);
   const [passwordEye2, setPasswordEye2] = useState(false);
@@ -48,25 +50,34 @@ const Register = () => {
           role: "student",
           gender: genderValue,
         };
-        console.log(newUser);
+
         signUp(email, password)
           .then(() => {
             updateUser(name, imgUrl)
               .then(() => {
-                console.log(newUser);
                 axios
                   .post("http://localhost:5000/users", newUser)
                   .then((res) => {
                     console.log(res);
                     if (res.data.insertedId) {
-                      reset();
                       toast.success("Account Created");
+                      reset();
+                      navigate(from, { replace: true });
                     }
                   });
               })
-              .catch((err) => console.log(err));
+              .catch((err) => {
+                console.log(err);
+              });
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            if (
+              err.message === "Firebase: Error (auth/email-already-in-use)."
+            ) {
+              reset();
+              toast.error("user Already exist");
+            }
+          });
       }
     });
   };
@@ -235,6 +246,8 @@ const Register = () => {
                   Already have an account.{" "}
                   <Link
                     to="/login"
+                    state={{ from: from }}
+                    replace
                     className="font-bold ml-1 text-orange-400 tracking-wider hover:underline"
                   >
                     Login
@@ -255,17 +268,7 @@ const Register = () => {
         <div className="max-w-md mx-auto my-3 pt-3 pb-2 px-4">
           <hr className="h-px bg-slate-500  border-0 dark:bg-white" />
         </div>
-        <div className="max-w-md mx-auto rounded-lg py-8 px-6 shadow-md bg-slate-50 dark:bg-slate-800 ">
-          <div>
-            <button
-              type="submit"
-              className="bg-slate-800 w-full dark:bg-white text-white dark:text-black font-yanoneKaffeesatz text-xl py-1 rounded-lg transition-transform hover:scale-105 ease-in-out flex justify-center items-center gap-2"
-            >
-              <FaGoogle className="text-lg"></FaGoogle>{" "}
-              <span>Continue with Google</span>
-            </button>
-          </div>
-        </div>
+        <GoogleLogin from={from}></GoogleLogin>
       </Container>
     </div>
   );
