@@ -1,12 +1,22 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import Container from "../../../components/Container";
 import { useEffect, useState, useCallback } from "react";
-import { FaBars, FaMoon, FaSun, FaUserCircle } from "react-icons/fa";
+import {
+  FaBars,
+  FaMoon,
+  FaOpencart,
+  FaSun,
+  FaUserCircle,
+} from "react-icons/fa";
 import Logo from "../../../components/logo";
 import useAuth from "../../../hooks/useAuth";
+import useRole from "../../../hooks/useRole";
+import useSelectedClasses from "../../../hooks/useSelectedClasses";
 
 const NavBar = () => {
   const { user, logOut } = useAuth();
+  const [role] = useRole();
+  const [selectedClasses] = useSelectedClasses();
   const theme = localStorage.getItem("theme") || "light";
   const [darkMode, setDarkMode] = useState(theme);
   const [isFixed, setFixed] = useState(false);
@@ -96,6 +106,28 @@ const NavBar = () => {
           Dashboard
         </NavLink>
       )}
+      {(!user || (user && role === "student")) && (
+        <div className="mt-2 lg:mt-0 relative mr-14">
+          <NavLink
+            to="/login"
+            state={{ from: location }}
+            replace
+            className={({ isActive }) =>
+              isActive
+                ? "text-orange-500 font-righteous text-lg tracking-wide"
+                : " font-righteous text-lg tracking-wide hover:text-orange-500"
+            }
+          >
+            <FaOpencart className="font-extrabold text-xl"></FaOpencart>
+            <div className="absolute px-2 bg-red-600 rounded-lg -top-2 -right-4">
+              <p className="text-xs text-white">
+                <small>{selectedClasses.length}</small>
+                {/* <small>0</small> */}
+              </p>
+            </div>
+          </NavLink>
+        </div>
+      )}
       {!user && (
         <div className="mt-2 lg:mt-0">
           <Link
@@ -167,7 +199,7 @@ const NavBar = () => {
 
           <div className="flex items-center space-x-4">
             <div className="hidden lg:flex items-end gap-8">
-              <ul className="flex flex-row justify-center items-center space-x-6">
+              <ul className="flex flex-row justify-center items-center space-x-7">
                 {navList}
               </ul>
             </div>

@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <AuthProvider>
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
-          <Toaster position="top-right" reverseOrder={false} />
+          <Toaster position="bottom-right" reverseOrder={false} />
           <RouterProvider router={router}></RouterProvider>
         </QueryClientProvider>
       </HelmetProvider>
