@@ -7,24 +7,22 @@ const CreateClass = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (e) => {
-    e.preventDefault();
-  };
+  const onSubmit = (data) => {};
   return (
     <div
       data-aos="fade-left"
       data-aos-duration="1500"
       data-aos-delay="250"
-      className="mt-28 mb-12 min-h-[calc(100vh-380px)]"
+      className=""
     >
       <Helmet>
         <title>Harmony Academy | Create New Class</title>
       </Helmet>
       <div className="text-center">
         <SectionTitle
+          subTitle="instructor"
           title="Create new Class"
           color={true}
           position="right"

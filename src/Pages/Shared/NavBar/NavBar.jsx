@@ -1,24 +1,17 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import Container from "../../../components/Container";
 import { useEffect, useState, useCallback } from "react";
-import {
-  FaBars,
-  FaMoon,
-  FaOpencart,
-  FaSun,
-  FaUserCircle,
-} from "react-icons/fa";
+import { FaBars, FaOpencart, FaUserCircle } from "react-icons/fa";
 import Logo from "../../../components/logo";
 import useAuth from "../../../hooks/useAuth";
 import useRole from "../../../hooks/useRole";
 import useSelectedClasses from "../../../hooks/useSelectedClasses";
+import ThemeButton from "../../../components/ThemeButton";
 
 const NavBar = () => {
   const { user, logOut } = useAuth();
   const [role] = useRole();
   const [selectedClasses] = useSelectedClasses();
-  const theme = localStorage.getItem("theme") || "light";
-  const [darkMode, setDarkMode] = useState(theme);
   const [isFixed, setFixed] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
   const location = useLocation();
@@ -37,13 +30,7 @@ const NavBar = () => {
       window.removeEventListener("scroll", handleFixedPosition);
     };
   }, []);
-  useEffect(() => {
-    if (darkMode === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
+
   useEffect(() => {
     window.scroll({
       top: 0,
@@ -52,10 +39,7 @@ const NavBar = () => {
     });
     setNavOpen(false);
   }, [location]);
-  const handleTheme = (buttonTheme) => {
-    setDarkMode(buttonTheme);
-    localStorage.setItem("theme", buttonTheme);
-  };
+
   const handleNavButton = useCallback(() => {
     setNavOpen(!navOpen);
   }, [navOpen]);
@@ -107,25 +91,26 @@ const NavBar = () => {
         </NavLink>
       )}
       {(!user || (user && role === "student")) && (
-        <div className="mt-2 lg:mt-0 relative mr-14">
-          <NavLink
-            to="/login"
-            state={{ from: location }}
-            replace
-            className={({ isActive }) =>
-              isActive
-                ? "text-orange-500 font-righteous text-lg tracking-wide"
-                : " font-righteous text-lg tracking-wide hover:text-orange-500"
-            }
-          >
-            <FaOpencart className="font-extrabold text-xl"></FaOpencart>
-            <div className="absolute px-2 bg-red-600 rounded-lg -top-2 -right-4">
-              <p className="text-xs text-white">
-                <small>{selectedClasses.length}</small>
-                {/* <small>0</small> */}
-              </p>
-            </div>
-          </NavLink>
+        <div className="mt-3 lg:mt-0 ">
+          <div className="relative w-fit">
+            <NavLink
+              to="/dashboard/selected-classes"
+              state={{ from: location }}
+              replace
+              className={({ isActive }) =>
+                isActive
+                  ? "text-orange-500 font-righteous text-lg tracking-wide "
+                  : " font-righteous text-lg tracking-wide hover:text-orange-500 "
+              }
+            >
+              <FaOpencart className="font-extrabold text-xl"></FaOpencart>
+              <div className="absolute px-2 bg-red-600 rounded-lg -top-2 -right-4">
+                <p className="text-xs text-white">
+                  <small>{selectedClasses.length}</small>
+                </p>
+              </div>
+            </NavLink>
+          </div>
         </div>
       )}
       {!user && (
@@ -203,27 +188,7 @@ const NavBar = () => {
                 {navList}
               </ul>
             </div>
-            {darkMode === "dark" ? (
-              <button
-                className="p-1 custom-button border-[#de5e02] rounded-full"
-                onClick={() => {
-                  handleTheme("light");
-                }}
-                title="Light"
-              >
-                <FaSun className="text-sm"></FaSun>
-              </button>
-            ) : (
-              <button
-                className="p-1 custom-button border-[#de5e02] rounded-full"
-                onClick={() => {
-                  handleTheme("dark");
-                }}
-                title="Dark"
-              >
-                <FaMoon className="text-sm"></FaMoon>
-              </button>
-            )}
+            <ThemeButton></ThemeButton>
             <button className="lg:hidden" onClick={handleNavButton}>
               <FaBars className="fa-solid fa-bars text-lg"></FaBars>
             </button>

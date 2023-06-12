@@ -10,7 +10,6 @@ const useSelectedClasses = () => {
     enabled: !loading,
     queryFn: async () => {
       const res = await secure(`/selectedClasses?email=${user?.email}`);
-      console.log(res);
       return res.data;
     },
   });

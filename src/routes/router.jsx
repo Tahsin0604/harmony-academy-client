@@ -7,6 +7,17 @@ import InstructorsDetails from "../Pages/InstructorsDetails/InstructorsDetails";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import CreateClass from "../Pages/Dashboard/CreateClass/CreateClass";
+import Dashboard from "../layouts/Dashboard";
+import PrivateRoutes from "./PrivateRoutes";
+import InstructorRoutes from "./InstructorRoutes";
+import SelectedClasses from "../Pages/Dashboard/SelectedClasses/SelectedClasses";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
+import EnrolledClasses from "../Pages/Dashboard/EnrolledClasses/EnrolledClasses";
+import MyClasses from "../Pages/Dashboard/MyClasses/MyClasses";
+import EditClass from "../Pages/Dashboard/EditClass/EditClass";
+import AdminRoutes from "./AdminRoutes";
+import ManageClasses from "../Pages/Dashboard/ManageClasses/ManageClasses";
+import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -40,8 +51,70 @@ const router = createBrowserRouter([
         element: <Register></Register>,
       },
       {
-        path: "create-class",
+        path: "create-new-class",
         element: <CreateClass></CreateClass>,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoutes>
+        <Dashboard></Dashboard>
+      </PrivateRoutes>
+    ),
+    children: [
+      {
+        path: "selected-classes",
+        element: <SelectedClasses></SelectedClasses>,
+      },
+      {
+        path: "enrolled-classes",
+        element: <EnrolledClasses></EnrolledClasses>,
+      },
+      {
+        path: "payment-history",
+        element: <PaymentHistory></PaymentHistory>,
+      },
+      {
+        path: "create-new-class",
+        element: (
+          <InstructorRoutes>
+            <CreateClass></CreateClass>
+          </InstructorRoutes>
+        ),
+      },
+      {
+        path: "my-classes",
+        element: (
+          <InstructorRoutes>
+            <MyClasses></MyClasses>
+          </InstructorRoutes>
+        ),
+      },
+      {
+        path: "editClass",
+        element: (
+          <InstructorRoutes>
+            <EditClass></EditClass>
+          </InstructorRoutes>
+        ),
+      },
+      {
+        path: "manage-classes",
+        element: (
+          <AdminRoutes>
+            <ManageClasses></ManageClasses>
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "manage-users",
+        element: (
+          <AdminRoutes>
+            <ManageUsers></ManageUsers>
+          </AdminRoutes>
+        ),
       },
     ],
   },
