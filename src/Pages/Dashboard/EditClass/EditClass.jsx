@@ -2,30 +2,110 @@ import { useForm } from "react-hook-form";
 import SectionTitle from "../../../components/SectionTitle";
 import Container from "../../../components/Container";
 import { Helmet } from "react-helmet-async";
-
+import { toast } from "react-hot-toast";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+const imageHostingKey = import.meta.env.VITE_IMAGE_KEY;
 const EditClass = () => {
+  const params = useParams();
+  console.log(params.id);
   const {
     register,
     handleSubmit,
-    watch,
+    reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const [secure] = useAxiosSecure();
+  const {
+    data: classDetails,
+    refetch,
+    isLoading: LoadingDetails,
+  } = useQuery({
+    queryKey: ["classes", params?.id],
+    queryFn: async () => {
+      const res = await secure(`/classes/${params.id}`);
+      console.log(res.data);
+      return res.data;
+    },
+  });
+  if (LoadingDetails) {
+    console.log();
+  }
+  const navigate = useNavigate();
+  const imageHostingUrl = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
+  const onSubmit = (data) => {
+    const { name, totalSeat, price } = data;
+    if (data.photo[0] == undefined) {
+      const editClass = {
+        className: name,
+        classImage: classDetails.classImage,
+        instructorName: classDetails.instructorName,
+        instructorEmail: classDetails.instructorEmail,
+        totalSeats: parseInt(totalSeat),
+        EnrolledStudents: classDetails.EnrolledStudents,
+        price: parseFloat(price.toString(0)),
+        availableSeats: parseInt(totalSeat) - classDetails.EnrolledStudents,
+        status: classDetails.status,
+        feedback: classDetails.feedback,
+      };
+      secure.patch(`/classes/${classDetails._id}`, editClass).then((res) => {
+        if (res.data.modifiedCount > 0) {
+          toast.success("Class details updated");
+          reset();
+          refetch();
+          navigate("/dashboard/my-classes");
+        }
+      });
+    } else {
+      const formData = new FormData();
+      formData.append("image", data.photo[0]);
+      axios.post(imageHostingUrl, formData).then((res) => {
+        if (res.data.success) {
+          const imgUrl = res.data.data.display_url;
+          const editClass = {
+            className: name,
+            classImage: imgUrl,
+            instructorName: classDetails.instructorName,
+            instructorEmail: classDetails.instructorEmail,
+            totalSeats: parseInt(totalSeat),
+            EnrolledStudents: classDetails.EnrolledStudents,
+            price: parseFloat(price.toString(0)),
+            availableSeats: parseInt(totalSeat) - classDetails.EnrolledStudents,
+            status: classDetails.status,
+            feedback: classDetails.feedback,
+          };
+          console.log(editClass);
+
+          secure
+            .patch(`/classes/${classDetails._id}`, editClass)
+            .then((res) => {
+              if (res.data.modifiedCount > 0) {
+                toast.success("Class details updated");
+                reset();
+                refetch();
+                navigate("/dashboard/my-classes");
+              }
+            });
+        }
+      });
+    }
   };
   return (
     <div
       data-aos="fade-left"
       data-aos-duration="1500"
       data-aos-delay="250"
-      className="mt-28 mb-12 min-h-[calc(100vh-380px)]"
+      className=""
     >
       <Helmet>
         <title>Harmony Academy | Edit Class</title>
       </Helmet>
       <div className="text-center">
         <SectionTitle
-          title="Edit Class"
+          subTitle="edit"
+          title="Class"
           color={true}
           position="right"
         ></SectionTitle>
@@ -42,6 +122,7 @@ const EditClass = () => {
               </label>
               <input
                 type="text"
+                defaultValue={classDetails?.className}
                 {...register("name", { required: true })}
                 className="py-1 px-2 border outline-none border-slate-500 rounded-md font-yanoneKaffeesatz text-lg dark:text-black"
               />
@@ -56,13 +137,9 @@ const EditClass = () => {
               </label>
               <input
                 type="file"
-                {...register("photo", { required: true })}
+                {...register("photo")}
                 className="file-input file-input-bordered w-full outline-none text-black  text-lg"
               />
-
-              {errors.photo?.type === "required" && (
-                <p className="text-red-600">Photo is required</p>
-              )}
             </div>
             <div className="flex flex-row gap-4 w-full">
               {/* totalSeat */}
@@ -74,11 +151,20 @@ const EditClass = () => {
                 </label>
                 <input
                   type="text"
-                  {...register("totalSeat", { required: true })}
+                  defaultValue={classDetails?.totalSeats}
+                  {...register("totalSeat", {
+                    required: true,
+                    pattern: /^[1-9]\d*$/,
+                  })}
                   className="py-1 px-2 w-full border outline-none border-slate-500 rounded-md font-yanoneKaffeesatz text-lg dark:text-black"
                 />
                 {errors.totalSeat?.type === "required" && (
-                  <p className="text-red-600">Email is required</p>
+                  <p className="text-red-600">Total seats is required</p>
+                )}
+                {errors.totalSeat?.type === "pattern" && (
+                  <p className="text-red-600">
+                    Must be a positive Integer number greater than 0
+                  </p>
                 )}
               </div>
               {/* price */}
@@ -87,12 +173,19 @@ const EditClass = () => {
                   <span className="font-yanoneKaffeesatz text-lg">Price</span>
                 </label>
                 <input
-                  type="email"
-                  {...register("price", { required: true })}
+                  type="text"
+                  defaultValue={classDetails?.price}
+                  {...register("price", {
+                    required: true,
+                    pattern: /^[0-9]*\.?[0-9]+$/,
+                  })}
                   className="py-1 px-2 border outline-none w-full border-slate-500 rounded-md font-yanoneKaffeesatz text-lg dark:text-black"
                 />
                 {errors.price?.type === "required" && (
                   <p className="text-red-600">Price is required</p>
+                )}
+                {errors.price?.type === "pattern" && (
+                  <p className="text-red-600">Must be a positive number</p>
                 )}
               </div>
             </div>

@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+
 import { loadStripe } from "@stripe/stripe-js";
 // import { CardElement, Elements, useElements, useStripe } from "../../src";
 import Container from "../../../components/Container";
@@ -21,12 +22,15 @@ const Payment = () => {
   return (
     <div className="w-[calc(100vw-50px)] lg:w-[calc(100vw-420px)]">
       <Container>
-        <SectionTitle
-          subTitle="payment"
-          title="Enrolled Now"
-          color={true}
-          position="right"
-        ></SectionTitle>
+        <div className="text-center">
+          <SectionTitle
+            subTitle="payment"
+            title="Enrolled Now"
+            color={true}
+            position="right"
+          ></SectionTitle>
+        </div>
+
         <div className="p-4">
           <Elements stripe={stripePromise}>
             <CheckOutForm selected={selected}></CheckOutForm>

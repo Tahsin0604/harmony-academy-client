@@ -2,14 +2,54 @@ import { useForm } from "react-hook-form";
 import SectionTitle from "../../../components/SectionTitle";
 import Container from "../../../components/Container";
 import { Helmet } from "react-helmet-async";
-
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import axios from "axios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { toast } from "react-hot-toast";
+const imageHostingKey = import.meta.env.VITE_IMAGE_KEY;
 const CreateClass = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {};
+  const { user } = useAuth();
+  const [secure] = useAxiosSecure();
+  const navigate = useNavigate();
+  const imageHostingUrl = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    formData.append("image", data.photo[0]);
+
+    axios.post(imageHostingUrl, formData).then((res) => {
+      if (res.data.success) {
+        const imgUrl = res.data.data.display_url;
+        const { name, totalSeat, price } = data;
+        const newClass = {
+          className: name,
+          classImage: imgUrl,
+          instructorName: user?.displayName,
+          instructorEmail: user?.email,
+          totalSeats: parseInt(totalSeat),
+          EnrolledStudents: 0,
+          price: parseFloat(price.toString(0)),
+          availableSeats: 0,
+          status: "pending",
+          feedback: "",
+        };
+
+        secure.post("/classes", newClass).then((res) => {
+          if (res.data.insertedId) {
+            toast.success("New Class Created");
+            reset();
+            navigate("/dashboard/my-classes");
+          }
+        });
+      }
+    });
+  };
   return (
     <div
       data-aos="fade-left"
@@ -22,8 +62,8 @@ const CreateClass = () => {
       </Helmet>
       <div className="text-center">
         <SectionTitle
-          subTitle="instructor"
-          title="Create new Class"
+          subTitle="create"
+          title="new Class"
           color={true}
           position="right"
         ></SectionTitle>
@@ -75,7 +115,7 @@ const CreateClass = () => {
                   type="text"
                   {...register("totalSeat", {
                     required: true,
-                    pattern: /^[0-9]*\.?[0-9]+$/,
+                    pattern: /^[1-9]\d*$/,
                   })}
                   className="py-1 px-2 w-full border outline-none border-slate-500 rounded-md font-yanoneKaffeesatz text-lg dark:text-black"
                 />
@@ -83,7 +123,9 @@ const CreateClass = () => {
                   <p className="text-red-600">Total seats is required</p>
                 )}
                 {errors.totalSeat?.type === "pattern" && (
-                  <p className="text-red-600">Must be a positive number</p>
+                  <p className="text-red-600">
+                    Must be a positive Integer number greater than 0
+                  </p>
                 )}
               </div>
               {/* price */}

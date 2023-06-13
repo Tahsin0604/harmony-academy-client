@@ -10,7 +10,6 @@ import { toast } from "react-hot-toast";
 const SelectedClasses = () => {
   const [selectedClasses, refetch] = useSelectedClasses();
   const [secure] = useAxiosSecure();
-  // const [buttonEnabled,setButton]
   const navigate = useNavigate();
   const deleItem = async (id) => {
     const res = await secure.delete(`/selectedClasses/${id}`);
@@ -41,7 +40,7 @@ const SelectedClasses = () => {
     if (avilability.data.availableSeats) {
       navigate(`/dashboard/payment/${selectedId}`);
     }
-    if (avilability.data.modifiedCount) {
+    if (avilability.data.modifiedCount > 0) {
       refetch();
       toast.error("This class is already filled up. Try next time.");
     }

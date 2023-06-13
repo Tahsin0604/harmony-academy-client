@@ -98,7 +98,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "editClass",
+        path: "editClass/:id",
         element: (
           <InstructorRoutes>
             <EditClass></EditClass>

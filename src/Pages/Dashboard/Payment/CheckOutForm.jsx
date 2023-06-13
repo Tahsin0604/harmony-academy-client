@@ -103,7 +103,10 @@ const CheckOutForm = ({ selected }) => {
   };
   return (
     <>
-      <form onSubmit={handleSubmit} className="mt-8 p-4 bg-slate-200 rounded">
+      <form
+        onSubmit={handleSubmit}
+        className="mt-8 p-4 bg-slate-300 rounded max-w-lg mx-auto"
+      >
         <CardElement
           options={{
             style: {
@@ -119,8 +122,13 @@ const CheckOutForm = ({ selected }) => {
               },
             },
           }}
+          className="border p-4 rounded bg-slate-100"
         />
-        <button type="submit" disabled={!stripe || processing || !clientSecret}>
+        <button
+          type="submit"
+          className="bg-red-500 hover:bg-red-600 mt-4 rounded-md  px-4 py-2"
+          disabled={!stripe || processing || !clientSecret}
+        >
           Pay
         </button>
       </form>

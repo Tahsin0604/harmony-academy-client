@@ -25,7 +25,7 @@ const EnrolledClasses = () => {
     <div className="w-[calc(100vw-50px)] lg:w-[calc(100vw-420px)]">
       <SectionTitle
         subTitle="explore"
-        title="selected Class"
+        title="Enrolled Classes"
         color={true}
         position="right"
       ></SectionTitle>

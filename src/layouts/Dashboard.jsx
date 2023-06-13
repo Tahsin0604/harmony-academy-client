@@ -63,16 +63,6 @@ const Dashboard = () => {
           </div>
           {role === "admin" ? (
             <>
-              {/* <li  className=" dark:hover:bg-slate-900 dark:hover:rounded-lg">
-                  <NavLink
-                    to="/dashboard/home"
-                    className={({ isActive }) =>
-                      (isActive ? "text-orange-500" : "text-black")
-                    }
-                  >
-                    <FaHome className="text-xl"></FaHome> Admin Home
-                  </NavLink>
-                </li> */}
               <li className=" dark:hover:bg-slate-900 dark:hover:rounded-lg">
                 <NavLink
                   to="/dashboard/manage-classes"
