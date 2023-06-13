@@ -5,7 +5,11 @@ import useAxiosSecure from "./useAxiosSecure";
 const useSelectedClasses = () => {
   const { user, loading } = useAuth();
   const [secure] = useAxiosSecure();
-  const { data: selectedClasses = [], refetch } = useQuery({
+  const {
+    data: selectedClasses = [],
+    refetch,
+    isLoading: classLoading,
+  } = useQuery({
     queryKey: ["selectedClasses", user?.email],
     enabled: !loading,
     queryFn: async () => {
@@ -13,7 +17,7 @@ const useSelectedClasses = () => {
       return res.data;
     },
   });
-  return [selectedClasses, refetch];
+  return [selectedClasses, refetch, classLoading];
 };
 
 export default useSelectedClasses;

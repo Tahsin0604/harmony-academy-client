@@ -1,30 +1,43 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import useSelectedClasses from "../hooks/useSelectedClasses";
 
 const ClassCard = ({ item }) => {
   const { user } = useAuth();
+  const [, refetch] = useSelectedClasses();
+  const [secure] = useAxiosSecure();
   const location = useLocation();
   const navigate = useNavigate();
   const { availableSeats, classImage, className, instructorName, price, _id } =
     item;
+  const InsertItem = async (item, email, id) => {
+    const res = await secure.post(
+      `/selectedClasses?email=${email}&id=${id}`,
+      item
+    );
+    console.log(res);
+    if (res.data.insertedId) {
+      refetch();
+      toast.success("Items Inserted");
+    }
+    if (res.data.exist) {
+      toast.success(res.data.exist);
+    }
+  };
   const handleAddToCart = (item) => {
     console.log(item);
     if (user && user?.email) {
       const selectedClasses = {
         classId: _id,
         className,
+        instructorName,
+        price,
         studentEmail: user.email,
       };
-      axios
-        .post("http://localhost:5000/selectedClasses", selectedClasses)
-        .then((res) => {
-          if (res.data.insertedId) {
-            toast.success("New Class Selected");
-          }
-        });
+      InsertItem(selectedClasses, user.email, _id);
     } else {
       Swal.fire({
         title: "please Login to select new class",

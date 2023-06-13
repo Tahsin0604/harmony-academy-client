@@ -18,6 +18,7 @@ import EditClass from "../Pages/Dashboard/EditClass/EditClass";
 import AdminRoutes from "./AdminRoutes";
 import ManageClasses from "../Pages/Dashboard/ManageClasses/ManageClasses";
 import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
+import Payment from "../Pages/Dashboard/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
       {
         path: "payment-history",
         element: <PaymentHistory></PaymentHistory>,
+      },
+      {
+        path: "payment/:id",
+        element: <Payment></Payment>,
       },
       {
         path: "create-new-class",
