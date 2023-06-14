@@ -19,11 +19,14 @@ import AdminRoutes from "./AdminRoutes";
 import ManageClasses from "../Pages/Dashboard/ManageClasses/ManageClasses";
 import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import Payment from "../Pages/Dashboard/Payment/Payment";
+import Profile from "../Pages/Dashboard/Profile/Profile";
+import ErrorHandlingPage from "../Pages/Error/ErrorHandlingPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorHandlingPage></ErrorHandlingPage>,
     children: [
       {
         path: "/",
@@ -41,7 +44,9 @@ const router = createBrowserRouter([
         path: "instructors/:id",
         element: <InstructorsDetails></InstructorsDetails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/instructors/${params.id}`),
+          fetch(
+            `https://harmony-academy-server.vercel.app/instructors/${params.id}`
+          ),
       },
       {
         path: "login",
@@ -65,6 +70,10 @@ const router = createBrowserRouter([
       </PrivateRoutes>
     ),
     children: [
+      {
+        path: "",
+        element: <Profile></Profile>,
+      },
       {
         path: "selected-classes",
         element: <SelectedClasses></SelectedClasses>,

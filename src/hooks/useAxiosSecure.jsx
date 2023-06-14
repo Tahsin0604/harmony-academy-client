@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const secure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://harmony-academy-server.vercel.app",
 });
 const useAxiosSecure = () => {
   const { logOut } = useAuth();

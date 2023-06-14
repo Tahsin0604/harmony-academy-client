@@ -6,6 +6,7 @@ import SectionTitle from "../../../components/SectionTitle";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { toast } from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const SelectedClasses = () => {
   const [selectedClasses, refetch] = useSelectedClasses();
@@ -47,6 +48,9 @@ const SelectedClasses = () => {
   };
   return (
     <div className="w-[calc(100vw-50px)] lg:w-[calc(100vw-420px)]">
+      <Helmet>
+        <title>{`Harmony Academy | Dashboard | Selected Classes`}</title>
+      </Helmet>
       <SectionTitle
         subTitle="explore"
         title="selected Class"
@@ -79,7 +83,7 @@ const SelectedClasses = () => {
                 <td>{item.className}</td>
                 <td>{item.instructorName}</td>
                 <td>{item.price}</td>
-                <th>
+                <td>
                   {item.status ? (
                     <p className="text-red-500">{item.status}</p>
                   ) : (
@@ -90,15 +94,15 @@ const SelectedClasses = () => {
                       Pay
                     </button>
                   )}
-                </th>
-                <th>
+                </td>
+                <td>
                   <button
                     onClick={() => handleDelete(item._id)}
                     className="bg-red-500 p-2 rounded hover:bg-red-600 text-white"
                   >
                     <FaTrashAlt></FaTrashAlt>
                   </button>
-                </th>
+                </td>
               </tr>
             ))}
           </tbody>

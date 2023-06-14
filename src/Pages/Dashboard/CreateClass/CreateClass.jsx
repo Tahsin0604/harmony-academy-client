@@ -58,7 +58,7 @@ const CreateClass = () => {
       className=""
     >
       <Helmet>
-        <title>Harmony Academy | Create New Class</title>
+        <title>{`Harmony Academy | Dashboard | Create new class`}</title>
       </Helmet>
       <div className="text-center">
         <SectionTitle

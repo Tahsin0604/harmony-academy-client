@@ -2,6 +2,7 @@ import SectionTitle from "../../../components/SectionTitle";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 const EnrolledClasses = () => {
   const [secure] = useAxiosSecure();
@@ -23,6 +24,9 @@ const EnrolledClasses = () => {
   }
   return (
     <div className="w-[calc(100vw-50px)] lg:w-[calc(100vw-420px)]">
+      <Helmet>
+        <title>{`Harmony Academy | Dashboard | Enrolled classes`}</title>
+      </Helmet>
       <SectionTitle
         subTitle="explore"
         title="Enrolled Classes"

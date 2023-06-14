@@ -2,6 +2,7 @@ import SectionTitle from "../../../components/SectionTitle";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 const PaymentHistory = () => {
   const [secure] = useAxiosSecure();
@@ -25,6 +26,9 @@ const PaymentHistory = () => {
   }
   return (
     <div className="w-[calc(100vw-50px)] lg:w-[calc(100vw-420px)]">
+      <Helmet>
+        <title>{`Harmony Academy | Dashboard | Payment History`}</title>
+      </Helmet>
       <SectionTitle
         subTitle="explore"
         title="Payment History"

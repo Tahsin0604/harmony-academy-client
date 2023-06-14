@@ -7,8 +7,10 @@ import axios from "axios";
 const InstructorList = () => {
   const [totalInstructors, setTotalInstructors] = useState(0);
   useEffect(() => {
-    axios("http://localhost:5000/instructors-count").then((res) =>
-      setTotalInstructors(res.data.totalInstructors)
+    axios("https://harmony-academy-server.vercel.app/instructors-count").then(
+      (res) => {
+        setTotalInstructors(res.data.totalInstructors);
+      }
     );
   }, []);
   const location = useLocation();

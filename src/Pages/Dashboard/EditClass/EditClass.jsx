@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 const imageHostingKey = import.meta.env.VITE_IMAGE_KEY;
 const EditClass = () => {
   const params = useParams();
-  console.log(params.id);
+
   const {
     register,
     handleSubmit,
@@ -26,7 +26,6 @@ const EditClass = () => {
     queryKey: ["classes", params?.id],
     queryFn: async () => {
       const res = await secure(`/classes/${params.id}`);
-      console.log(res.data);
       return res.data;
     },
   });
@@ -76,7 +75,6 @@ const EditClass = () => {
             status: classDetails.status,
             feedback: classDetails.feedback,
           };
-          console.log(editClass);
 
           secure
             .patch(`/classes/${classDetails._id}`, editClass)
@@ -100,7 +98,7 @@ const EditClass = () => {
       className=""
     >
       <Helmet>
-        <title>Harmony Academy | Edit Class</title>
+        <title>{`Harmony Academy | Dashboard | Edit Class`}</title>
       </Helmet>
       <div className="text-center">
         <SectionTitle

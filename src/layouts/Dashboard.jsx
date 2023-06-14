@@ -16,8 +16,10 @@ import useRole from "../hooks/useRole";
 import { AiFillRead } from "react-icons/ai";
 import useAuth from "../hooks/useAuth";
 import useSelectedClasses from "../hooks/useSelectedClasses";
+import useAosInit from "../hooks/useAosInit";
 
 const Dashboard = () => {
+  useAosInit();
   const [role] = useRole();
   const { user, logOut } = useAuth();
   const [selectedClasses] = useSelectedClasses();
@@ -61,6 +63,14 @@ const Dashboard = () => {
               <small>{role}</small>
             </p>
           </div>
+          <li className=" dark:hover:bg-slate-900 dark:hover:rounded-lg">
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) => (isActive ? "text-orange-500" : "")}
+            >
+              <FaHome className="text-xl"></FaHome> User Dashboard
+            </NavLink>
+          </li>
           {role === "admin" ? (
             <>
               <li className=" dark:hover:bg-slate-900 dark:hover:rounded-lg">

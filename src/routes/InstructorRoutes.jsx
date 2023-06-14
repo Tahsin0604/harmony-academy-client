@@ -6,7 +6,6 @@ import { Navigate } from "react-router-dom";
 const InstructorRoutes = ({ children }) => {
   const { user, loading } = useAuth();
   const [role, roleLoading] = useRole();
-  console.log(role);
   if (loading || roleLoading) {
     return (
       <div className="flex justify-center">

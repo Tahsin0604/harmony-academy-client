@@ -55,7 +55,10 @@ const Register = () => {
             updateUser(name, imgUrl)
               .then(() => {
                 axios
-                  .post("http://localhost:5000/users", newUser)
+                  .post(
+                    "https://harmony-academy-server.vercel.app/users",
+                    newUser
+                  )
                   .then((res) => {
                     if (res.data.insertedId) {
                       toast.success("Account Created");

@@ -7,8 +7,8 @@ import axios from "axios";
 const ClassList = () => {
   const [totalClasses, setTotalClasses] = useState(0);
   useEffect(() => {
-    axios("http://localhost:5000/classes-count").then((res) =>
-      setTotalClasses(res.data.totalClasses)
+    axios("https://harmony-academy-server.vercel.app/classes-count").then(
+      (res) => setTotalClasses(res.data.totalClasses)
     );
   }, []);
   let limit = 6;

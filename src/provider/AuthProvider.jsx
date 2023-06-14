@@ -62,7 +62,9 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       if (currentUser) {
         axios
-          .post("http://localhost:5000/jwt", { email: currentUser.email })
+          .post("https://harmony-academy-server.vercel.app/jwt", {
+            email: currentUser.email,
+          })
           .then((res) => {
             localStorage.setItem("access-token", res.data);
             setLoading(false);

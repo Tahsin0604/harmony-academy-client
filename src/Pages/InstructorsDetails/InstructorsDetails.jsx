@@ -6,10 +6,8 @@ import { Helmet } from "react-helmet-async";
 
 const InstructorsDetails = () => {
   const [instructor] = useLoaderData();
-  console.log(instructor);
   const { email, image, name, totalClasses, totalStudents, classes } =
     instructor;
-  console.log(email);
   return (
     <div className="mt-28 mb-12 min-h-[calc(100vh-380px)]">
       <Helmet>

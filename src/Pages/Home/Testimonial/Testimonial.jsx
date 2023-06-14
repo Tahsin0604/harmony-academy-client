@@ -18,9 +18,11 @@ import SectionTitle from "../../../components/SectionTitle";
 const Testimonial = () => {
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:5000/reviews").then((res) => {
-      setReviews(res.data);
-    });
+    axios
+      .get("https://harmony-academy-server.vercel.app/reviews")
+      .then((res) => {
+        setReviews(res.data);
+      });
   }, []);
   return (
     <div className="testimonial">

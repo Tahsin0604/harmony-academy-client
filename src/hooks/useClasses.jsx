@@ -10,7 +10,7 @@ const useClasses = ({ limit, page }) => {
     queryKey: ["classes", limit, page],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/classes?limit=${limit}&page=${page}`
+        `https://harmony-academy-server.vercel.app/classes?limit=${limit}&page=${page}`
       );
       return res.data;
     },

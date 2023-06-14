@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 import ClassCard from "../../components/ClassCard";
 
 const InstructorClassList = ({ classes }) => {
-  console.log(classes);
   const [items, setItems] = useState(classes.slice(0, 12));
   const totalClasses = classes.length;
-  console.log(totalClasses);
   const [currentPage, setCurrentPage] = useState(0);
   const totalPages = Math.ceil(totalClasses / 12);
   const pageNumbers = [...Array(totalPages).keys()];

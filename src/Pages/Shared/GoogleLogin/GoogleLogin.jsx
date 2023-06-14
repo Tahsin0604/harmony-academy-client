@@ -18,9 +18,11 @@ const GoogleLogin = ({ from }) => {
           role: "student",
           gender: "",
         };
-        axios.post("http://localhost:5000/users", newUser).then(() => {
-          navigate(from, { replace: true });
-        });
+        axios
+          .post("https://harmony-academy-server.vercel.app/users", newUser)
+          .then(() => {
+            navigate(from, { replace: true });
+          });
       })
       .catch();
   };

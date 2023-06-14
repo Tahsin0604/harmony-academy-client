@@ -4,15 +4,16 @@ import useAuth from "../../../hooks/useAuth";
 import SectionTitle from "../../../components/SectionTitle";
 import { FaPen } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const MyClasses = () => {
   const [secure] = useAxiosSecure();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const { data: classList = [], isLoading: classLoading } = useQuery({
     queryKey: ["my-classes", user?.email],
+    enabled: !loading,
     queryFn: async () => {
       const res = await secure(`/my-classes/${user?.email}`);
-      console.log(res);
       return res.data;
     },
   });
@@ -25,6 +26,9 @@ const MyClasses = () => {
   }
   return (
     <div className="w-[calc(100vw-50px)] lg:w-[calc(100vw-420px)]">
+      <Helmet>
+        <title>Harmony Academy | Dashboard | My Classes</title>
+      </Helmet>
       <SectionTitle
         subTitle="explore"
         title="my Classes"
@@ -55,10 +59,20 @@ const MyClasses = () => {
                   <label>{index + 1}</label>
                 </th>
                 <td>{item.className}</td>
-                <td>{item.status}</td>
+                <td
+                  className={`${
+                    item.status === "approved"
+                      ? "text-green-500"
+                      : item.status === "denied"
+                      ? "text-red-500"
+                      : "text-orange-500"
+                  }`}
+                >
+                  {item.status}
+                </td>
                 <td>{item.EnrolledStudents}</td>
-                <th>{item.feedback}</th>
-                <th>
+                <td>{item.feedback}</td>
+                <td>
                   <div className="flex items-center">
                     <Link
                       to={`/dashboard/editClass/${item._id}`}
@@ -67,7 +81,7 @@ const MyClasses = () => {
                       <FaPen></FaPen>
                     </Link>
                   </div>
-                </th>
+                </td>
               </tr>
             ))}
           </tbody>

@@ -90,7 +90,7 @@ const NavBar = () => {
           Dashboard
         </NavLink>
       )}
-      {(!user || (user && role === "student")) && (
+      {user && role === "student" && (
         <div className="mt-3 lg:mt-0 ">
           <div className="relative w-fit">
             <NavLink

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const InstructorCard = ({ item }) => {
   const { _id, image, name, totalClasses, totalStudents } = item;
-  console.log(item);
   return (
     <div data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="200">
       <Link to={`/instructors/${_id}`}>

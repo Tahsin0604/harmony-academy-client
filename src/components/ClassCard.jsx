@@ -18,7 +18,7 @@ const ClassCard = ({ item }) => {
       `/selectedClasses?email=${email}&id=${id}`,
       item
     );
-    console.log(res);
+
     if (res.data.insertedId) {
       refetch();
       toast.success("Items Inserted");
@@ -28,7 +28,6 @@ const ClassCard = ({ item }) => {
     }
   };
   const handleAddToCart = (item) => {
-    console.log(item);
     if (user && user?.email) {
       const selectedClasses = {
         classId: _id,

@@ -27,6 +27,7 @@ const CheckOutForm = ({ selected }) => {
   useEffect(() => {
     if (amount > 1) {
       secure.post("/create-payment-intent", { amount }).then((res) => {
+        console.log(res.data.clientSecret);
         setClientSecret(res.data.clientSecret);
       });
     }
@@ -46,7 +47,6 @@ const CheckOutForm = ({ selected }) => {
     });
 
     if (error) {
-      console.log("[error]", error);
       setCardError(error.message);
     } else {
       setCardError("");
@@ -65,7 +65,6 @@ const CheckOutForm = ({ selected }) => {
     if (confirmError) {
       console.log(confirmError);
     }
-    console.log(paymentIntent);
     setProcessing(false);
     if (paymentIntent.status === "succeeded") {
       setTransactionId(paymentIntent.id);
@@ -81,13 +80,11 @@ const CheckOutForm = ({ selected }) => {
       };
 
       secure.post(`/payment?id=${selected._id}`, payment).then((res) => {
-        console.log(res.data.insertedResult.insertedId);
         if (res.data.insertedResult.insertedId) {
           refetch();
           toast.success("Payment complete");
           secure(`/enrolledClasses/${res.data.insertedResult.insertedId}`).then(
             (res) => {
-              console.log(res.data);
               setData(res.data);
               const printingDate = new Date(res.data.paidAt);
               const year = printingDate.getFullYear();
@@ -126,7 +123,7 @@ const CheckOutForm = ({ selected }) => {
         />
         <button
           type="submit"
-          className="bg-red-500 hover:bg-red-600 mt-4 rounded-md  px-4 py-2"
+          className="bg-blue-300 hover:bg-blue-400 mt-4 rounded-md  px-4 py-2"
           disabled={!stripe || processing || !clientSecret}
         >
           Pay

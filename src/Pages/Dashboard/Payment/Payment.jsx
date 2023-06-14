@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
 
 import { loadStripe } from "@stripe/stripe-js";
-// import { CardElement, Elements, useElements, useStripe } from "../../src";
+
 import Container from "../../../components/Container";
 import SectionTitle from "../../../components/SectionTitle";
 import CheckOutForm from "./CheckOutForm";
 import { Elements } from "@stripe/react-stripe-js";
 import useSelectedClasses from "../../../hooks/useSelectedClasses";
+import { Helmet } from "react-helmet-async";
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 const Payment = () => {
   const params = useParams();
@@ -21,6 +22,9 @@ const Payment = () => {
   const selected = selectedClasses.find((item) => item._id === params.id);
   return (
     <div className="w-[calc(100vw-50px)] lg:w-[calc(100vw-420px)]">
+      <Helmet>
+        <title>{`Harmony Academy | Dashboard | Payment`}</title>
+      </Helmet>
       <Container>
         <div className="text-center">
           <SectionTitle
