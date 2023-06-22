@@ -30,7 +30,7 @@ const useAxiosSecure = () => {
         return Promise.reject(error);
       }
     );
-  }, [logOut, secure, navigate]);
+  }, [logOut, navigate]);
   return [secure];
 };
 

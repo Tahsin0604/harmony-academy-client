@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "./useAuth";
-import useAxiosSecure from "./useAxiosSecure";
+
+import useAxiosForAllUsers from "./useAxiosForAllUsers";
 
 const useSelectedClasses = () => {
   const { user, loading } = useAuth();
-  const [secure] = useAxiosSecure();
+  const [publicAxios] = useAxiosForAllUsers();
   const {
     data: selectedClasses = [],
     refetch,
@@ -13,8 +14,12 @@ const useSelectedClasses = () => {
     queryKey: ["selectedClasses", user?.email],
     enabled: !loading,
     queryFn: async () => {
-      const res = await secure(`/selectedClasses?email=${user?.email}`);
-      return res.data;
+      if (user?.email) {
+        const res = await publicAxios(`/selectedClasses?email=${user?.email}`);
+        return res.data;
+      } else {
+        return [];
+      }
     },
   });
   return [selectedClasses, refetch, classLoading];
